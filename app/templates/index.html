@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - Interview Prep{% endblock %}
+
+{% block content %}
+<div class="dashboard">
+    <h2>Interview Prep Dashboard</h2>
+    
+    <div class="stats-grid">
+        <div class="stat-card">
+            <h3>{{ questions_count }}</h3>
+            <p>Practice Questions</p>
+            <a href="{{ url_for('questions') }}" class="btn-link">View All →</a>
+        </div>
+        
+        <div class="stat-card">
+            <h3>{{ applications_count }}</h3>
+            <p>Active Applications</p>
+            <a href="{{ url_for('applications') }}" class="btn-link">View All →</a>
+        </div>
+        
+        <div class="stat-card">
+            <h3>{{ materials_count }}</h3>
+            <p>Study Materials</p>
+            <a href="{{ url_for('materials') }}" class="btn-link">View All →</a>
+        </div>
+        
+        <div class="stat-card">
+            <h3>{{ syllabus_completed }}/{{ syllabus_total }}</h3>
+            <p>Topics Completed</p>
+            <a href="{{ url_for('syllabus') }}" class="btn-link">View Progress →</a>
+        </div>
+    </div>
+
+    <div class="recent-section">
+        <h3>Recent Applications</h3>
+        {% if recent_applications %}
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Company</th>
+                        <th>Role</th>
+                        <th>Stage</th>
+                        <th>Status</th>
+                        <th>Last Updated</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for app in recent_applications %}
+                    <tr>
+                        <td><strong>{{ app.company }}</strong></td>
+                        <td>{{ app.role }}</td>
+                        <td><span class="badge">{{ app.current_stage }}</span></td>
+                        <td><span class="status-{{ app.status.lower() }}">{{ app.status }}</span></td>
+                        <td>{{ app.updated_at.strftime('%Y-%m-%d') }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p class="empty-state">No applications yet. <a href="{{ url_for('add_application') }}">Add your first application</a></p>
+        {% endif %}
+    </div>
+
+    <div class="quick-actions">
+        <h3>Quick Actions</h3>
+        <div class="action-buttons">
+            <a href="{{ url_for('add_question') }}" class="btn btn-primary">➕ Add Question</a>
+            <a href="{{ url_for('add_application') }}" class="btn btn-primary">📝 Track Application</a>
+            <a href="{{ url_for('syllabus') }}" class="btn btn-secondary">📚 View Syllabus</a>
+            <a href="{{ url_for('styles') }}" class="btn btn-secondary">🏢 Company Guides</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

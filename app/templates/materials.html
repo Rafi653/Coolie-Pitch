@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Study Materials - Interview Prep{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h2>Study Materials</h2>
+    <a href="#" class="btn btn-primary">➕ Add Material</a>
+</div>
+
+{% if materials %}
+    <div class="materials-grid">
+        {% for material in materials %}
+        <div class="material-card">
+            <h3>{{ material.title }}</h3>
+            <span class="badge">{{ material.topic }}</span>
+            {% if material.source_url %}
+                <a href="{{ material.source_url }}" target="_blank" class="external-link">View Source →</a>
+            {% endif %}
+            <p class="date">Added: {{ material.created_at.strftime('%Y-%m-%d') }}</p>
+        </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <div class="empty-state">
+        <p>No study materials yet. Add your learning resources and notes!</p>
+        <p class="info-text">You can also add markdown files to the <code>material/</code> directory.</p>
+    </div>
+{% endif %}
+{% endblock %}

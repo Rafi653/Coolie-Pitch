@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}Syllabus - Interview Prep{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h2>Interview Prep Syllabus</h2>
+    <a href="#" class="btn btn-primary">➕ Add Topic</a>
+</div>
+
+{% if topics %}
+    <div class="syllabus-container">
+        {% set current_category = '' %}
+        {% for topic in topics %}
+            {% if topic.category != current_category %}
+                {% set current_category = topic.category %}
+                <h3 class="category-header">{{ current_category }}</h3>
+            {% endif %}
+            <div class="syllabus-item status-{{ topic.status.lower().replace(' ', '-') }}">
+                <input type="checkbox" {% if topic.status == 'Completed' %}checked{% endif %}>
+                <span class="topic-name">{{ topic.topic }}</span>
+                <span class="priority priority-{{ topic.priority.lower() }}">{{ topic.priority }}</span>
+                <span class="status">{{ topic.status }}</span>
+            </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <div class="empty-state">
+        <p>No topics yet. Create your interview prep checklist!</p>
+        <p class="info-text">Check the <code>syllabus/README.md</code> for suggested topics.</p>
+    </div>
+{% endif %}
+{% endblock %}

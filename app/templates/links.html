@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}Useful Links - Interview Prep{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h2>Useful Links & Resources</h2>
+    <a href="#" class="btn btn-primary">➕ Add Link</a>
+</div>
+
+{% if links %}
+    {% set current_category = '' %}
+    {% for link in links %}
+        {% if link.category != current_category %}
+            {% set current_category = link.category %}
+            <h3 class="category-header">{{ current_category }}</h3>
+        {% endif %}
+        <div class="link-item">
+            <h4><a href="{{ link.url }}" target="_blank">{{ link.title }} ↗</a></h4>
+            {% if link.description %}
+                <p>{{ link.description }}</p>
+            {% endif %}
+            {% if link.tags %}
+                <div class="tags">
+                    {% for tag in link.tags.split(',') %}
+                        <span class="tag">{{ tag.strip() }}</span>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    {% endfor %}
+{% else %}
+    <div class="empty-state">
+        <p>No links saved yet. Add your favorite interview prep resources!</p>
+        <p class="info-text">Check <code>links/README.md</code> for starter suggestions.</p>
+    </div>
+{% endif %}
+{% endblock %}

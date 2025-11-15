@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}Applications - Interview Prep{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h2>Job Applications</h2>
+    <a href="{{ url_for('add_application') }}" class="btn btn-primary">➕ Add Application</a>
+</div>
+
+{% if applications %}
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>Company</th>
+                <th>Role</th>
+                <th>Applied Date</th>
+                <th>Current Stage</th>
+                <th>Status</th>
+                <th>Last Updated</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for app in applications %}
+            <tr>
+                <td><strong>{{ app.company }}</strong></td>
+                <td>{{ app.role }}</td>
+                <td>{{ app.applied_date.strftime('%Y-%m-%d') }}</td>
+                <td><span class="badge">{{ app.current_stage }}</span></td>
+                <td><span class="status-{{ app.status.lower() }}">{{ app.status }}</span></td>
+                <td>{{ app.updated_at.strftime('%Y-%m-%d') }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <div class="empty-state">
+        <p>No applications tracked yet. Start adding your job applications!</p>
+        <a href="{{ url_for('add_application') }}" class="btn btn-primary">Add Your First Application</a>
+    </div>
+{% endif %}
+{% endblock %}
