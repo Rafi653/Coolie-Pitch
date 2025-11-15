@@ -100,6 +100,15 @@ Coolie-Pitch/
 5. **Access the application**:
    Open your browser and navigate to: `http://127.0.0.1:5000`
 
+### Development Mode
+
+For development with debug mode enabled:
+```bash
+FLASK_DEBUG=true python app.py
+```
+
+**⚠️ Security Note**: Debug mode should **NEVER** be enabled in production as it allows arbitrary code execution. By default, debug mode is disabled.
+
 ## 📖 Usage Guide
 
 ### Web Application
