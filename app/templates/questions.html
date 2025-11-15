@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}Questions - Interview Prep{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h2>Practice Questions</h2>
+    <a href="{{ url_for('add_question') }}" class="btn btn-primary">➕ Add Question</a>
+</div>
+
+{% if questions %}
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Category</th>
+                <th>Difficulty</th>
+                <th>Company</th>
+                <th>Date Added</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for question in questions %}
+            <tr>
+                <td><strong>{{ question.title }}</strong></td>
+                <td><span class="badge">{{ question.category }}</span></td>
+                <td><span class="difficulty-{{ question.difficulty.lower() }}">{{ question.difficulty }}</span></td>
+                <td>{{ question.company or 'General' }}</td>
+                <td>{{ question.created_at.strftime('%Y-%m-%d') }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <div class="empty-state">
+        <p>No questions yet. Start adding practice questions to track your progress!</p>
+        <a href="{{ url_for('add_question') }}" class="btn btn-primary">Add Your First Question</a>
+    </div>
+{% endif %}
+{% endblock %}

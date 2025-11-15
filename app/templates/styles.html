@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}Company Interview Styles - Interview Prep{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h2>Company Interview Styles</h2>
+    <a href="#" class="btn btn-primary">➕ Add Company</a>
+</div>
+
+{% if styles %}
+    <div class="styles-container">
+        {% for style in styles %}
+        <div class="company-card">
+            <h3>{{ style.company }}</h3>
+            {% if style.rounds %}
+                <p class="rounds-info">{{ style.rounds }} rounds</p>
+            {% endif %}
+            {% if style.process_description %}
+                <p class="description">{{ style.process_description[:200] }}...</p>
+            {% endif %}
+            {% if style.common_topics %}
+                <p class="topics"><strong>Common Topics:</strong> {{ style.common_topics }}</p>
+            {% endif %}
+            {% if style.timeline %}
+                <p class="timeline"><strong>Timeline:</strong> {{ style.timeline }}</p>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <div class="empty-state">
+        <p>No company interview styles documented yet.</p>
+        <p class="info-text">Add information about interview processes for different companies. Check <code>styles/README.md</code> for examples.</p>
+    </div>
+{% endif %}
+{% endblock %}
